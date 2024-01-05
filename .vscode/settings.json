@@ -50,5 +50,6 @@
         "xstddef": "cpp",
         "xtr1common": "cpp",
         "xutility": "cpp"
-    }
+    },
+    "cloudcode.duetAI.inlineSuggestions.enableAuto": true
 }
