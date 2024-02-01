@@ -1,11 +1,10 @@
+#include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <unordered_map>
-#include <unordered_set>
 #include <vector>
-
 
 int main() {
   std::ifstream inputFile("input");
@@ -17,6 +16,9 @@ int main() {
     std::cerr << "Error opening the file." << std::endl;
     return 1;
   }
+
+  std::unordered_map<std::string, int> colors = {
+      {"blue", 14}, {"red", 12}, {"green", 13}};
 
   while (std::getline(inputFile, line)) {
     // std::cout << line << std::endl;
@@ -34,8 +36,13 @@ int main() {
 
     games.push_back(game);
     subsets.push_back(subset);
-  }
+  };
 
+  std::cout << subsets.size() << std::endl;
+
+  for (int i = 0; i < subsets.size(); i++) {
+    printf("Game %d and the subset is %s \n", i + 1, subsets[i].c_str());
+  }
   inputFile.close();
 
   int resultmain = 0;
