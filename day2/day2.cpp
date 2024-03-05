@@ -12,7 +12,7 @@ int main()
 
   std::vector<std::string> lines, games, subsets;
   std::string line;
-  int sum = 0, gameNumber = 1;
+  int sum = 0, gameNumber = 1, multipliedSum = 0, theMultiTemp = 0;
   bool check = true;
 
   if (!inputFile.is_open())
@@ -23,6 +23,9 @@ int main()
 
   std::unordered_map<std::string, int> colors = {
       {"blue", 14}, {"red", 12}, {"green", 13}};
+
+  std::unordered_map<std::string, int> maxColors = {
+      {"blue", 1}, {"red", 1}, {"green", 1}};
 
   while (std::getline(inputFile, line))
   {
@@ -66,16 +69,21 @@ int main()
         int numOfCubes = std::stoi(theMain.substr(0, theMain.find(' ')));
 
         int temp = colors[color];
+        int temp2 = maxColors[color];
         if (numOfCubes > temp)
         {
           check = false;
-          break;
+          // break;
+        };
+        if (numOfCubes > temp2)
+        {
+          maxColors[color] = numOfCubes;
         };
       };
 
       if (check == false)
       {
-        break;
+        // break;
       };
     };
 
@@ -86,6 +94,13 @@ int main()
 
     gameNumber++;
     check = true;
+
+    printf("-------------------------------------- \n");
+    theMultiTemp = maxColors["blue"] * maxColors["red"] * maxColors["green"];
+    multipliedSum += theMultiTemp;
+
+    maxColors = {
+        {"blue", 1}, {"red", 1}, {"green", 1}};
   };
 
   // printf(" Subsets size is %d \n", subsets.size());
@@ -98,7 +113,9 @@ int main()
 
   std::cout << "---------- the sum is ---------" << std::endl;
   std::cout << sum << std::endl;
-  printf("this is the sum --- -- %d -- --- \n", sum);
+  printf("this is the sum for part 1 --- -- %d -- --- \n", sum);
+
+  printf("this is the sum for part 2 --- -- %d -- --- \n", multipliedSum);
 
   return 0;
 }
