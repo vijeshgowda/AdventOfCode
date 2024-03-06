@@ -49,7 +49,7 @@ int main()
     while (std::getline(bigSubset, smallSubset, ';'))
     {
       // std::cout << smallSubset << std::endl;
-      printf("--- --- --- \n");
+      // printf("--- --- --- \n");
 
       std::istringstream bigSubset2(smallSubset);
       std::string smallSubset2;
@@ -63,7 +63,7 @@ int main()
 
         std::getline(bigSubset3, theMain);
 
-        std::cout << theMain << std::endl;
+        // std::cout << theMain << std::endl;
 
         std::string color = theMain.substr(theMain.find(' ') + 1, theMain.length());
         int numOfCubes = std::stoi(theMain.substr(0, theMain.find(' ')));
@@ -95,7 +95,7 @@ int main()
     gameNumber++;
     check = true;
 
-    printf("-------------------------------------- \n");
+    // printf("-------------------------------------- \n");
     theMultiTemp = maxColors["blue"] * maxColors["red"] * maxColors["green"];
     multipliedSum += theMultiTemp;
 
@@ -111,8 +111,6 @@ int main()
   // }
   inputFile.close();
 
-  std::cout << "---------- the sum is ---------" << std::endl;
-  std::cout << sum << std::endl;
   printf("this is the sum for part 1 --- -- %d -- --- \n", sum);
 
   printf("this is the sum for part 2 --- -- %d -- --- \n", multipliedSum);
