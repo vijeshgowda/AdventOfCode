@@ -4,10 +4,18 @@ fn main() {
 
     let contents = fs::read_to_string("./input").expect("Should have been able to read the file");
 
-    second_function(contents);
+    let sum = sum_adjacent_numbers(contents);
+    println!("Sum of part numbers: {}", sum);
 }
 
-fn second_function(contents: String) {
-    let name: &str = "--- day3 input ---";
-    println!("{name}\n{contents}");
+fn sum_adjacent_numbers(schematic: String) -> i32 {
+    let mut sum = 0;
+
+    let rows: Vec<&str> = schematic.trim().split('\n').collect();
+
+    println!("the vector \n {:?}", rows);
+    sum += 2;
+    println!("length of vector: {}", rows.len());
+
+    sum
 }
