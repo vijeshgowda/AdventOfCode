@@ -1,6 +1,6 @@
 use std::fs;
 fn main() {
-    println!("hello world");
+    println!("main function starts");
 
     let contents = fs::read_to_string("./input").expect("Should have been able to read the file");
 
@@ -8,6 +8,6 @@ fn main() {
 }
 
 fn second_function(contents: String) {
-    // let name: &str = "some name";
-    println!("{contents}");
+    let name: &str = "--- day3 input ---";
+    println!("{name}\n{contents}");
 }
