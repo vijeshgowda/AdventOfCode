@@ -12,9 +12,11 @@ fn sum_adjacent_numbers(schematic: String) -> i32 {
     let mut sum = 0;
 
     let rows: Vec<&str> = schematic.trim().split('\n').collect();
+    for i in 0..rows.len() {
+        println!("the vector at {i} is - {:?}", rows[i]);
+    }
 
     println!("the vector \n {:?}", rows);
-    sum += 2;
     println!("length of vector: {}", rows.len());
 
     sum
