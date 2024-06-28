@@ -3,7 +3,7 @@ use std::fs;
 fn main() {
     println!("main function starts");
 
-    let contents = fs::read_to_string("./input1").expect("Should have been able to read the file");
+    let contents = fs::read_to_string("./input").expect("Should have been able to read the file");
 
     let sum = sum_adjacent_numbers(contents);
     println!("Sum of part numbers: {}", sum);
