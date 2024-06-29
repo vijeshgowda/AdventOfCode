@@ -1,12 +1,58 @@
-use std::fs;
+use std::{char, fs};
 
 fn main() {
     println!("main function starts");
 
     let contents = fs::read_to_string("./input").expect("Should have been able to read the file");
+    let contents2 = fs::read_to_string("./input").expect("Should have been able to read the file");
 
     let sum = sum_adjacent_numbers(contents);
+    let sum2 = gear_ratio(contents2);
+
     println!("Sum of part numbers: {}", sum);
+
+    println!("Sum of gear ratios : {}", sum2);
+}
+
+fn gear_ratio(schematic: String) -> i32 {
+    let mut sum = 0;
+
+    let mut rows: Vec<&str> = schematic.trim().split('\n').collect();
+
+    let mut rows_main: Vec<&str> = Vec::new();
+
+    for row in rows.iter() {
+        rows_main.push(row.trim_end_matches('\r'));
+    }
+    rows = rows_main.clone();
+
+    let mut grid: Vec<Vec<char>> = vec![vec![' '; rows[0].len()]; rows.len()];
+
+    // for i in 0..rows.len() {
+    //     println!("the vector at {i} is - {:}", rows[i]);
+    // }
+
+    for i in 0..rows.len() {
+        for j in 0..rows[i].len() {
+            grid[i][j] = rows[i].chars().nth(j).unwrap_or(' ');
+        }
+    }
+
+    let directions = [
+        (-1, -1),
+        (-1, 0),
+        (-1, 1),
+        (0, -1),
+        (0, 0),
+        (0, 1),
+        (1, -1),
+        (1, 0),
+        (1, 1),
+    ];
+
+    // println!("The grid parsed\n {:?}", grid);
+
+    sum
 }
 
 fn is_symbol(c: char) -> bool {
@@ -327,10 +373,10 @@ fn sum_adjacent_numbers(schematic: String) -> i32 {
     // println!("\nthe full vector is \n {:#?}", rows);
     // println!("\nthe parsed vector is \n {:?}", parsed_rows);
 
-    println!(
-        "\nthe test character is -- {:?}",
-        rows[1].chars().nth(3).unwrap_or(' ')
-    );
+    // println!(
+    //     "\nthe test character is -- {:?}",
+    //     rows[1].chars().nth(3).unwrap_or(' ')
+    // );
 
     println!("length of vector: {}", rows.len());
     if sum == 0 {
