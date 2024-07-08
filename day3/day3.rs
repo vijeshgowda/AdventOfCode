@@ -49,6 +49,22 @@ fn gear_ratio(schematic: String) -> i32 {
         (1, 1),
     ];
 
+    for i in 0..rows.len() {
+        for j in 0..rows.len() {
+            if i > 0 && i < rows.len() - 1 && j > 0 && j < rows.len() - 1 {
+                if grid[i][j] == '*' {
+                    println!("--------- star at - {}, {}-----------", i, j);
+                    for (dr, dc) in directions.iter() {
+                        let a: i32 = i as i32 + dr;
+                        let b: i32 = j as i32 + dc;
+
+                        println!("char at {},{} is {}", a, b, grid[a as usize][b as usize]);
+                    }
+                }
+            }
+        }
+    }
+
     // println!("The grid parsed\n {:?}", grid);
 
     sum
