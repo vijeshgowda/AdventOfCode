@@ -1,7 +1,7 @@
 use std::{char, fs};
 
 fn main() {
-    println!("main function starts");
+    // println!("main function starts");
 
     let contents = fs::read_to_string("./input").expect("Should have been able to read the file");
     let contents2 = fs::read_to_string("./input").expect("Should have been able to read the file");
@@ -43,7 +43,6 @@ fn gear_ratio(schematic: String) -> i32 {
         (-1, 0),
         (-1, 1),
         (0, -1),
-        (0, 0),
         (0, 1),
         (1, -1),
         (1, 0),
@@ -378,7 +377,8 @@ fn sum_adjacent_numbers(schematic: String) -> i32 {
     //     rows[1].chars().nth(3).unwrap_or(' ')
     // );
 
-    println!("length of vector: {}", rows.len());
+    //println!("length of vector: {}", rows.len());
+
     if sum == 0 {
         sum = sum_numbers.iter().sum::<i32>();
     }
