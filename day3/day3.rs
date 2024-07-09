@@ -51,14 +51,57 @@ fn gear_ratio(schematic: String) -> i32 {
 
     for i in 0..rows.len() {
         for j in 0..rows.len() {
+            let mut up = false;
+            let mut down = false;
+            let mut left = false;
+            let mut right = false;
+
             if i > 0 && i < rows.len() - 1 && j > 0 && j < rows.len() - 1 {
                 if grid[i][j] == '*' {
+                    let mut count_of = 0;
+
                     println!("--------- star at - {}, {}-----------", i, j);
                     for (dr, dc) in directions.iter() {
                         let a: i32 = i as i32 + dr;
                         let b: i32 = j as i32 + dc;
 
                         println!("char at {},{} is {}", a, b, grid[a as usize][b as usize]);
+
+                        if grid[a as usize][b as usize].is_digit(10) {
+                            if a > i as i32 {
+                                down = true;
+                            }
+                            if a < i as i32 {
+                                up = true;
+                            }
+                            if a == i as i32 && b < j as i32 {
+                                left = true;
+                            }
+                            if a == i as i32 && b > j as i32 {
+                                right = true;
+                            }
+                        }
+                    }
+                    println!("--- for star at - {}, {}----", i, j);
+                    if up {
+                        println!("up is true");
+                        count_of += 1;
+                    }
+                    if down {
+                        println!("down is true");
+                        count_of += 1;
+                    }
+                    if left {
+                        println!("left is true");
+                        count_of += 1;
+                    }
+                    if right {
+                        println!("right is true");
+                        count_of += 1;
+                    }
+
+                    if count_of == 2 {
+                        println!("You can take this gear ratio!!!")
                     }
                 }
             }
