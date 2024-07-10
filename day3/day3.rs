@@ -62,14 +62,14 @@ fn gear_ratio(schematic: String) -> i32 {
                     let mut count_of_up = 0;
                     let mut count_of_down = 0;
 
-                    if grid[i - 1][j] == '.'
+                    if (grid[i - 1][j] == '.' || is_symbol(grid[i - 1][j]))
                         && grid[i - 1][j - 1].is_digit(10)
                         && grid[i - 1][j + 1].is_digit(10)
                     {
                         count_of_up = 2;
                     }
 
-                    if grid[i + 1][j] == '.'
+                    if (grid[i + 1][j] == '.' || is_symbol(grid[i + 1][j]))
                         && grid[i + 1][j - 1].is_digit(10)
                         && grid[i + 1][j + 1].is_digit(10)
                     {
@@ -117,11 +117,76 @@ fn gear_ratio(schematic: String) -> i32 {
                     }
 
                     if count_of == 2 && count_of_up == 0 && count_of_down == 0 {
-                        println!("You can take this gear ratio!!!")
+                        println!("You can take this gear ratio!!!");
+
+                        if left && right {
+                            let range_slice_left = &grid[i][j - 3..j];
+                            let range_slice_right = &grid[i][j + 1..j + 4];
+
+                            let filtered_left: String = range_slice_left
+                                .iter()
+                                .filter(|&&c| c.is_digit(10))
+                                .collect();
+                            let filtered_right: String = range_slice_right
+                                .iter()
+                                .filter(|&&c| c.is_digit(10))
+                                .collect();
+
+                            println!("{}, {}", filtered_left, filtered_right);
+                            match (filtered_left.parse::<i32>(), filtered_right.parse::<i32>()) {
+                                (Ok(left_num), Ok(right_num)) => {
+                                    sum += left_num * right_num;
+                                }
+                                (Err(e), _) => println!("Failed to parse left number: {}", e),
+                                (_, Err(e)) => println!("Failed to parse right number: {}", e),
+                            }
+                        }
                     } else if count_of == 1 && count_of_up == 2 && count_of_down == 0 {
-                        println!("You can take this gear ratio!!!")
+                        println!("You can take this gear ratio!!!");
+
+                        let range_slice_left = &grid[i - 1][j - 3..j];
+                        let range_slice_right = &grid[i - 1][j + 1..j + 4];
+
+                        let filtered_left: String = range_slice_left
+                            .iter()
+                            .filter(|&&c| c.is_digit(10))
+                            .collect();
+                        let filtered_right: String = range_slice_right
+                            .iter()
+                            .filter(|&&c| c.is_digit(10))
+                            .collect();
+
+                        println!("{}, {}", filtered_left, filtered_right);
+                        match (filtered_left.parse::<i32>(), filtered_right.parse::<i32>()) {
+                            (Ok(left_num), Ok(right_num)) => {
+                                sum += left_num * right_num;
+                            }
+                            (Err(e), _) => println!("Failed to parse left number: {}", e),
+                            (_, Err(e)) => println!("Failed to parse right number: {}", e),
+                        }
                     } else if count_of == 1 && count_of_up == 0 && count_of_down == 2 {
-                        println!("You can take this gear ratio!!!")
+                        println!("You can take this gear ratio!!!");
+
+                        let range_slice_left = &grid[i + 1][j - 3..j];
+                        let range_slice_right = &grid[i + 1][j + 1..j + 4];
+
+                        let filtered_left: String = range_slice_left
+                            .iter()
+                            .filter(|&&c| c.is_digit(10))
+                            .collect();
+                        let filtered_right: String = range_slice_right
+                            .iter()
+                            .filter(|&&c| c.is_digit(10))
+                            .collect();
+
+                        println!("{}, {}", filtered_left, filtered_right);
+                        match (filtered_left.parse::<i32>(), filtered_right.parse::<i32>()) {
+                            (Ok(left_num), Ok(right_num)) => {
+                                sum += left_num * right_num;
+                            }
+                            (Err(e), _) => println!("Failed to parse left number: {}", e),
+                            (_, Err(e)) => println!("Failed to parse right number: {}", e),
+                        }
                     }
                 }
             }
