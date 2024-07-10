@@ -6,67 +6,69 @@
 #include <unordered_map>
 #include <vector>
 
+using namespace std;
+
 int main()
 {
-  std::ifstream inputFile("input");
+  ifstream inputFile("input");
 
-  std::vector<std::string> lines, games, subsets;
-  std::string line;
+  vector<string> lines, games, subsets;
+  string line;
   int sum = 0, gameNumber = 1, multipliedSum = 0, theMultiTemp = 0;
   bool check = true;
 
   if (!inputFile.is_open())
   {
-    std::cerr << "Error opening the file." << std::endl;
+    cerr << "Error opening the file." << endl;
     return 1;
   }
 
-  std::unordered_map<std::string, int> colors = {
+  unordered_map<string, int> colors = {
       {"blue", 14}, {"red", 12}, {"green", 13}};
 
-  std::unordered_map<std::string, int> maxColors = {
+  unordered_map<string, int> maxColors = {
       {"blue", 1}, {"red", 1}, {"green", 1}};
 
-  while (std::getline(inputFile, line))
+  while (getline(inputFile, line))
   {
-    // std::cout << line << std::endl;
+    // cout << line << endl;
     lines.push_back(line);
 
-    std::istringstream ss(line);
-    std::string game, subset, smallSubset; // Strings to store the split segments
+    istringstream ss(line);
+    string game, subset, smallSubset; // Strings to store the split segments
 
-    std::getline(ss, game, ':'); // Split at ":" and store the first segment in token1
-    std::getline(ss, subset);
+    getline(ss, game, ':'); // Split at ":" and store the first segment in token1
+    getline(ss, subset);
 
-    // std::cout << game << std::endl;
-    // std::cout << subset << std::endl;
+    // cout << game << endl;
+    // cout << subset << endl;
 
     games.push_back(game);
     subsets.push_back(subset);
 
-    std::istringstream bigSubset(subset);
+    istringstream bigSubset(subset);
 
-    while (std::getline(bigSubset, smallSubset, ';'))
+    while (getline(bigSubset, smallSubset, ';'))
     {
-      // std::cout << smallSubset << std::endl;
+      // cout << smallSubset << endl;
       // printf("--- --- --- \n");
 
-      std::istringstream bigSubset2(smallSubset);
-      std::string smallSubset2;
-      while (std::getline(bigSubset2, smallSubset2, ','))
+      istringstream bigSubset2(smallSubset);
+      string smallSubset2;
+      while (getline(bigSubset2, smallSubset2, ','))
       {
-        // std::cout << smallSubset2 << std::endl;
+        // cout << smallSubset2 << endl;
 
-        std::istringstream bigSubset3(smallSubset2);
-        std::string smallSubset3, theMain;
-        std::getline(bigSubset3, smallSubset3, ' ');
+        istringstream bigSubset3(smallSubset2);
+        string smallSubset3, theMain;
+        getline(bigSubset3, smallSubset3, ' ');
 
-        std::getline(bigSubset3, theMain);
+        getline(bigSubset3, theMain);
 
-        // std::cout << theMain << std::endl;
+        // cout << theMain << endl;
 
-        std::string color = theMain.substr(theMain.find(' ') + 1, theMain.length());
-        int numOfCubes = std::stoi(theMain.substr(0, theMain.find(' ')));
+        string color = theMain.substr(theMain.find(' ') + 1, theMain.length());
+        int numOfCubes = stoi(theMain.substr(0, theMain.find(' ')));
 
         int temp = colors[color];
         int temp2 = maxColors[color];

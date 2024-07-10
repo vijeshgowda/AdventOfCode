@@ -5,24 +5,26 @@
 #include <vector>
 #include <unordered_map>
 
-int getResult(std::vector<std::string> &lines);
+using namespace std;
+
+int getResult(vector<string> &lines);
 
 int main()
 {
-  std::ifstream inputFile("input");
+  ifstream inputFile("input");
 
-  std::vector<std::string> lines;
-  std::string line;
+  vector<string> lines;
+  string line;
 
   if (!inputFile.is_open())
   {
-    std::cerr << "Error opening the file." << std::endl;
+    cerr << "Error opening the file." << endl;
     return 1;
   }
 
-  while (std::getline(inputFile, line))
+  while (getline(inputFile, line))
   {
-    // std::cout << line << std::endl;
+    // cout << line << endl;
     lines.push_back(line);
   }
 
@@ -30,39 +32,39 @@ int main()
 
   int resultmain = getResult(lines);
 
-  std::cout << "---------- the sum is ---------" << std::endl;
-  std::cout << resultmain << std::endl;
+  cout << "---------- the sum is ---------" << endl;
+  cout << resultmain << endl;
   printf("this is the sum --- -- %d -- --- \n", resultmain);
 
   return 0;
 }
 
-int getResult(std::vector<std::string> &lines)
+int getResult(vector<string> &lines)
 {
   int i = 0, sum = 0;
   int j = lines.size();
 
-  std::unordered_set<char> digits = {'0', '1', '2', '3', '4',
-                                     '5', '6', '7', '8', '9'};
+  unordered_set<char> digits = {'0', '1', '2', '3', '4',
+                                '5', '6', '7', '8', '9'};
 
   for (int k = 0; k < lines.size(); k++)
   {
-    std::string tempL = lines[k];
+    string tempL = lines[k];
 
-    std::cout << tempL << std::endl;
+    cout << tempL << endl;
 
     char iv = 'a', jv = 'a';
     for (i = 0, j = lines[k].size() - 1; iv == 'a' || jv == 'a'; i++, j--)
     {
       char tempi = tempL[i];
-      // std::cout << tempi << std::endl;
+      // cout << tempi << endl;
       char tempj = tempL[j];
-      // std::cout << tempj << std::endl;
+      // cout << tempj << endl;
 
       if (digits.find(tempi) != digits.end() && iv == 'a')
       {
         iv = tempi;
-        // std::cout << iv << std::endl;
+        // cout << iv << endl;
       }
       else if (iv == 'a')
       {
@@ -102,13 +104,13 @@ int getResult(std::vector<std::string> &lines)
         {
           iv = '9';
         }
-        // std::cout << iv << std::endl;
+        // cout << iv << endl;
       }
 
       if (digits.find(tempj) != digits.end() && jv == 'a')
       {
         jv = tempj;
-        // std::cout << jv << std::endl;
+        // cout << jv << endl;
       }
       else if (jv == 'a')
       {
@@ -148,13 +150,13 @@ int getResult(std::vector<std::string> &lines)
         {
           jv = '9';
         }
-        // std::cout << jv << std::endl;
+        // cout << jv << endl;
       }
     }
 
-    std::string ijv = std::string() + iv + jv;
-    // std::cout << ijv << std::endl;
-    sum += std::stoi(ijv);
+    string ijv = string() + iv + jv;
+    // cout << ijv << endl;
+    sum += stoi(ijv);
   }
 
   return sum;
