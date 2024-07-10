@@ -119,74 +119,149 @@ fn gear_ratio(schematic: String) -> i32 {
                     if count_of == 2 && count_of_up == 0 && count_of_down == 0 {
                         println!("You can take this gear ratio!!!");
 
-                        if left && right {
-                            let range_slice_left = &grid[i][j - 3..j];
-                            let range_slice_right = &grid[i][j + 1..j + 4];
+                        let mut temp = 1;
 
-                            let filtered_left: String = range_slice_left
-                                .iter()
-                                .filter(|&&c| c.is_digit(10))
-                                .collect();
-                            let filtered_right: String = range_slice_right
-                                .iter()
-                                .filter(|&&c| c.is_digit(10))
-                                .collect();
+                        if up {
+                            let mut start = j;
+                            let mut end = j;
+                            let mut k = j;
+                            let mut h = j;
 
-                            println!("{}, {}", filtered_left, filtered_right);
-                            match (filtered_left.parse::<i32>(), filtered_right.parse::<i32>()) {
-                                (Ok(left_num), Ok(right_num)) => {
-                                    sum += left_num * right_num;
+                            if grid[i - 1][j].is_digit(10) {
+                                k = j;
+                                h = j;
+                            } else if grid[i - 1][j - 1].is_digit(10) {
+                                k = j - 1;
+                                h = j - 1;
+                            } else if grid[i - 1][j + 1].is_digit(10) {
+                                k = j + 1;
+                                h = j + 1;
+                            }
+
+                            while k > 0 && grid[i - 1][k - 1].is_digit(10) {
+                                k -= 1;
+                            }
+                            while h < grid[i - 1].len() - 1 && grid[i - 1][h + 1].is_digit(10) {
+                                h += 1;
+                            }
+                            start = k;
+                            end = h + 1;
+
+                            let range_slice = &grid[i - 1][start..end];
+
+                            let filtered: String =
+                                range_slice.iter().filter(|&&c| c.is_digit(10)).collect();
+
+                            match filtered.parse::<i32>() {
+                                Ok(result) => {
+                                    println!("{}", result);
+                                    temp *= result;
                                 }
-                                (Err(e), _) => println!("Failed to parse left number: {}", e),
-                                (_, Err(e)) => println!("Failed to parse right number: {}", e),
+                                Err(e) => println!("Failed to parse left number: {}", e),
                             }
                         }
+                        if down {
+                            let mut start = j;
+                            let mut end = j;
+                            let mut k = j;
+                            let mut h = j;
+
+                            if grid[i + 1][j].is_digit(10) {
+                                k = j;
+                                h = j;
+                            } else if grid[i + 1][j - 1].is_digit(10) {
+                                k = j - 1;
+                                h = j - 1;
+                            } else if grid[i + 1][j + 1].is_digit(10) {
+                                k = j + 1;
+                                h = j + 1;
+                            }
+
+                            while k > 0 && grid[i + 1][k - 1].is_digit(10) {
+                                k -= 1;
+                            }
+                            while h < grid[i - 1].len() - 1 && grid[i + 1][h + 1].is_digit(10) {
+                                h += 1;
+                            }
+                            start = k;
+                            end = h + 1;
+
+                            let range_slice = &grid[i + 1][start..end];
+
+                            let filtered: String =
+                                range_slice.iter().filter(|&&c| c.is_digit(10)).collect();
+
+                            match filtered.parse::<i32>() {
+                                Ok(result) => {
+                                    println!("{}", result);
+                                    temp *= result;
+                                }
+                                Err(e) => println!("Failed to parse left number: {}", e),
+                            }
+                        }
+                        if left {
+                            let mut start = j - 1;
+                            let mut end = j - 1;
+                            let mut k = j - 1;
+
+                            if grid[i][j - 1].is_digit(10) {
+                                k = j - 1;
+                            }
+
+                            while k > 0 && grid[i][k - 1].is_digit(10) {
+                                k -= 1;
+                            }
+                            start = k;
+                            end = j;
+
+                            let range_slice = &grid[i][start..end];
+
+                            let filtered: String =
+                                range_slice.iter().filter(|&&c| c.is_digit(10)).collect();
+
+                            match filtered.parse::<i32>() {
+                                Ok(result) => {
+                                    println!("{}", result);
+                                    temp *= result;
+                                }
+                                Err(e) => println!("Failed to parse left number: {}", e),
+                            }
+                        }
+                        if right {
+                            let mut start = j + 1;
+                            let mut end = j + 1;
+                            let mut k = j + 1;
+
+                            if grid[i][j + 1].is_digit(10) {
+                                k = j + 1;
+                            }
+
+                            while k < grid[i].len() - 1 && grid[i][k + 1].is_digit(10) {
+                                k += 1;
+                            }
+                            start = j + 1;
+                            end = k + 1;
+
+                            let range_slice = &grid[i][start..end];
+
+                            let filtered: String =
+                                range_slice.iter().filter(|&&c| c.is_digit(10)).collect();
+
+                            match filtered.parse::<i32>() {
+                                Ok(result) => {
+                                    println!("{}", result);
+                                    temp *= result;
+                                }
+                                Err(e) => println!("Failed to parse left number: {}", e),
+                            }
+                        }
+                        sum += temp;
                     } else if count_of == 1 && count_of_up == 2 && count_of_down == 0 {
                         println!("You can take this gear ratio!!!");
-
-                        let range_slice_left = &grid[i - 1][j - 3..j];
-                        let range_slice_right = &grid[i - 1][j + 1..j + 4];
-
-                        let filtered_left: String = range_slice_left
-                            .iter()
-                            .filter(|&&c| c.is_digit(10))
-                            .collect();
-                        let filtered_right: String = range_slice_right
-                            .iter()
-                            .filter(|&&c| c.is_digit(10))
-                            .collect();
-
-                        println!("{}, {}", filtered_left, filtered_right);
-                        match (filtered_left.parse::<i32>(), filtered_right.parse::<i32>()) {
-                            (Ok(left_num), Ok(right_num)) => {
-                                sum += left_num * right_num;
-                            }
-                            (Err(e), _) => println!("Failed to parse left number: {}", e),
-                            (_, Err(e)) => println!("Failed to parse right number: {}", e),
-                        }
+                        sum += calculate(&grid, i - 1, j);
                     } else if count_of == 1 && count_of_up == 0 && count_of_down == 2 {
                         println!("You can take this gear ratio!!!");
-
-                        let range_slice_left = &grid[i + 1][j - 3..j];
-                        let range_slice_right = &grid[i + 1][j + 1..j + 4];
-
-                        let filtered_left: String = range_slice_left
-                            .iter()
-                            .filter(|&&c| c.is_digit(10))
-                            .collect();
-                        let filtered_right: String = range_slice_right
-                            .iter()
-                            .filter(|&&c| c.is_digit(10))
-                            .collect();
-
-                        println!("{}, {}", filtered_left, filtered_right);
-                        match (filtered_left.parse::<i32>(), filtered_right.parse::<i32>()) {
-                            (Ok(left_num), Ok(right_num)) => {
-                                sum += left_num * right_num;
-                            }
-                            (Err(e), _) => println!("Failed to parse left number: {}", e),
-                            (_, Err(e)) => println!("Failed to parse right number: {}", e),
-                        }
+                        sum += calculate(&grid, i + 1, j);
                     }
                 }
             }
@@ -196,6 +271,61 @@ fn gear_ratio(schematic: String) -> i32 {
     // println!("The grid parsed\n {:?}", grid);
 
     sum
+}
+
+fn calculate(grid: &Vec<Vec<char>>, i: usize, j: usize) -> i32 {
+    let mut temp = 1;
+
+    let mut start = j - 1;
+    let mut end = j - 1;
+    let mut k = j - 1;
+
+    if grid[i][j - 1].is_digit(10) {
+        k = j - 1;
+    }
+
+    while k > 0 && grid[i][k - 1].is_digit(10) {
+        k -= 1;
+    }
+    start = k;
+    end = j;
+
+    let range_slice = &grid[i][start..end];
+
+    let filtered: String = range_slice.iter().filter(|&&c| c.is_digit(10)).collect();
+
+    match filtered.parse::<i32>() {
+        Ok(result) => {
+            println!("{}", result);
+            temp *= result;
+        }
+        Err(e) => println!("Failed to parse left number: {}", e),
+    }
+
+    if grid[i][j + 1].is_digit(10) {
+        k = j + 1;
+    }
+
+    while k < grid[i].len() - 1 && grid[i][k + 1].is_digit(10) {
+        k += 1;
+    }
+    start = j + 1;
+    end = k + 1;
+
+    let range_slice = &grid[i][start..end];
+
+    let filtered: String = range_slice.iter().filter(|&&c| c.is_digit(10)).collect();
+
+    match filtered.parse::<i32>() {
+        Ok(result) => {
+            println!("{}", result);
+            temp *= result;
+        }
+        Err(e) => println!("Failed to parse left number: {}", e),
+    }
+
+    println!("the multiplication - {}", temp);
+    temp
 }
 
 fn is_symbol(c: char) -> bool {
