@@ -59,6 +59,22 @@ fn gear_ratio(schematic: String) -> i32 {
             if i > 0 && i < rows.len() - 1 && j > 0 && j < rows.len() - 1 {
                 if grid[i][j] == '*' {
                     let mut count_of = 0;
+                    let mut count_of_up = 0;
+                    let mut count_of_down = 0;
+
+                    if grid[i - 1][j] == '.'
+                        && grid[i - 1][j - 1].is_digit(10)
+                        && grid[i - 1][j + 1].is_digit(10)
+                    {
+                        count_of_up = 2;
+                    }
+
+                    if grid[i + 1][j] == '.'
+                        && grid[i + 1][j - 1].is_digit(10)
+                        && grid[i + 1][j + 1].is_digit(10)
+                    {
+                        count_of_down = 2;
+                    }
 
                     println!("--------- star at - {}, {}-----------", i, j);
                     for (dr, dc) in directions.iter() {
@@ -100,7 +116,11 @@ fn gear_ratio(schematic: String) -> i32 {
                         count_of += 1;
                     }
 
-                    if count_of == 2 {
+                    if count_of == 2 && count_of_up == 0 && count_of_down == 0 {
+                        println!("You can take this gear ratio!!!")
+                    } else if count_of == 2 && count_of_up == 2 && count_of_down == 0 {
+                        println!("You can take this gear ratio!!!")
+                    } else if count_of == 2 && count_of_up == 0 && count_of_down == 2 {
                         println!("You can take this gear ratio!!!")
                     }
                 }
