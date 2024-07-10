@@ -118,9 +118,9 @@ fn gear_ratio(schematic: String) -> i32 {
 
                     if count_of == 2 && count_of_up == 0 && count_of_down == 0 {
                         println!("You can take this gear ratio!!!")
-                    } else if count_of == 2 && count_of_up == 2 && count_of_down == 0 {
+                    } else if count_of == 1 && count_of_up == 2 && count_of_down == 0 {
                         println!("You can take this gear ratio!!!")
-                    } else if count_of == 2 && count_of_up == 0 && count_of_down == 2 {
+                    } else if count_of == 1 && count_of_up == 0 && count_of_down == 2 {
                         println!("You can take this gear ratio!!!")
                     }
                 }
